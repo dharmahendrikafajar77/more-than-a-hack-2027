@@ -32,6 +32,20 @@ evaluation/scoreboard.csv
 data/*
 !data/README.md
 
+# -- derived local caches, local models and pipeline outputs --
+cache/
+outputs/*
+!outputs/*.md
+models/
+*.parquet
+*.feather
+*.npy
+*.npz
+*.pkl
+*.pt
+*.pth
+*.onnx
+
 *.mp4
 *.gzip
 *.pl3container

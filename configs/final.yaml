@@ -1,0 +1,59 @@
+# Final master configuration for team 'Mama Doain Aku Sukses Ya'
+# More Than a Hack 2027 (Phase 1: Ball Possession)
+
+team:
+  name: "Mama Doain Aku Sukses Ya"
+  slug: "Mama_Doain_Aku_Sukses_Ya"
+
+environment:
+  seed: 42
+  game: "BAR-ATH"
+  cache_dir: "cache/tactical"
+  output_dir: "outputs"
+  use_cache: true
+
+geometry:
+  pitch_length_m: 105.3
+  pitch_width_m: 68.0
+  fps: 25.0
+
+cv:
+  enabled: true
+  min_confidence: 0.40
+  crop_size_px: 256
+  models_dir: "models"
+
+fusion:
+  use_rts_smoother: true
+  max_coast_frames: 25
+  outlier_max_speed_mps: 45.0
+  q_pos_var: 0.15
+  q_vel_var: 4.0
+  r_atd_var: 0.25
+  r_cv_base_var: 0.64
+
+possession:
+  control_radius_m: 2.5
+  dwell_threshold_frames: 25
+  st_prior_weight: 1.2
+  persistence_weight: 2.0
+
+dead_ball:
+  out_margin_weight: 4.0
+  stillness_weight: 5.0
+  goal_stoppage_weight: 6.0
+  kickoff_stoppage_weight: 6.0
+  stillness_speed_threshold_mps: 1.35
+  walking_fraction_threshold: 0.65
+
+temporal:
+  smoothing_window: 60
+  # 3x3 HMM Transition matrix: [H, A, D] (Mean stay ~ 12-15s at 25 FPS)
+  transition_matrix:
+    - [0.996, 0.002, 0.002]  # from H
+    - [0.002, 0.996, 0.002]  # from A
+    - [0.002, 0.002, 0.996]  # from D
+  initial_priors: [0.1, 0.1, 0.8]
+
+reporting:
+  generate_storytelling: true
